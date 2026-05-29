@@ -1,5 +1,9 @@
 # grib-map — desktop AROME weather map
 
+For the slides you can find them here: [`./slides/slides.pdf`](./slides/slides.pdf).
+
+## Overview
+
 A reference implementation of the lab in
 [`arome-tauri-weather-lab-student.md`](./arome-tauri-weather-lab-student.md):
 a **Tauri + Rust + Leaflet** desktop app that opens a Météo-France **AROME**
