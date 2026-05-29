@@ -6,3 +6,6 @@ slides/.slidev/
 # Editor / session
 .claude/
 .DS_Store
+
+# AROME files downloaded by data/fetch_arome_sp1.sh (large, refreshable)
+data/arome_sp1_*Z_*.grib2
