@@ -137,6 +137,37 @@ GRIB2 file
 
 ---
 
+# A GRIB file, visualised
+
+<div class="grid grid-cols-[1.5fr_1fr] gap-6 items-center mt-2">
+
+<div>
+
+<img src="./images/grib-gfs-joachim.png" class="rounded shadow-lg w-full" alt="A NOAA GFS file rendered in zyGrib" />
+
+</div>
+
+<div class="text-sm">
+
+A NOAA **GFS** file rendered in **zyGrib** — surface conditions during storm
+**Joachim** (15 Dec 2011).
+
+<div class="mt-3" />
+
+Every coloured cell is **one grid point's value**. That is exactly what our app
+does with AROME's **2 m temperature** over Montpellier: decode the grid, paint a
+colour per cell.
+
+<div class="opacity-60 mt-6 text-xs">
+Source: Wikimedia Commons — zyGrib / NOAA-GFS.
+</div>
+
+</div>
+
+</div>
+
+---
+
 # Three ideas that matter
 
 <div class="space-y-3 mt-2">
