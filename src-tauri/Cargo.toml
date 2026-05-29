@@ -27,4 +27,5 @@ serde_json = "1"
 grib = { version = "0.15.6", default-features = false, features = [
     "ccsds-unpack-with-libaec",
 ] }
+tauri-plugin-dialog = "2"
 

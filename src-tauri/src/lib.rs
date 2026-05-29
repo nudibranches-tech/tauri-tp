@@ -22,10 +22,7 @@ const LON_MAX: f64 = 4.8;
 /// discipline 0 (meteorology) / category 0 (temperature) / number 0 (temperature)
 /// at a fixed surface of 2 (metres above ground).
 fn is_2m_temperature(d: u8, cat: Option<u8>, num: Option<u8>, level: Option<f64>) -> bool {
-    d == 0
-        && cat == Some(0)
-        && num == Some(0)
-        && level.map_or(false, |v| (v - 2.0).abs() < 0.001)
+    d == 0 && cat == Some(0) && num == Some(0) && level.map_or(false, |v| (v - 2.0).abs() < 0.001)
 }
 
 /// Part 3.2 — list every field so we can spot the 2 m temperature one.
@@ -83,8 +80,7 @@ fn load_temperature(path: String) -> Result<Vec<TempPoint>, String> {
 
         // Coordinates FIRST, then move the submessage into the decoder.
         let latlons = submessage.latlons().map_err(|e| e.to_string())?;
-        let decoder =
-            grib::Grib2SubmessageDecoder::from(submessage).map_err(|e| e.to_string())?;
+        let decoder = grib::Grib2SubmessageDecoder::from(submessage).map_err(|e| e.to_string())?;
         let values = decoder.dispatch().map_err(|e| e.to_string())?;
 
         let mut points = Vec::new();
@@ -112,6 +108,7 @@ fn load_temperature(path: String) -> Result<Vec<TempPoint>, String> {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
             greet,
@@ -191,7 +188,13 @@ mod tests {
         };
         let points = load_temperature(path.to_string_lossy().into_owned())
             .expect("decoding the real AROME file should succeed");
-        assert!(!points.is_empty(), "real file produced no points in the box");
-        eprintln!("real AROME file: {} points in the Montpellier box", points.len());
+        assert!(
+            !points.is_empty(),
+            "real file produced no points in the box"
+        );
+        eprintln!(
+            "real AROME file: {} points in the Montpellier box",
+            points.len()
+        );
     }
 }
