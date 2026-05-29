@@ -112,6 +112,12 @@ equations to forecast temperature, wind, humidity… for the coming hours.
 
 </div>
 
+<div class="mt-4 text-xs opacity-70">
+<b>“2 m”</b> = 2 metres above the ground — the WMO standard height for near-surface
+air temperature (thermometer / shelter height). It's the temperature people
+actually feel, and the file may store temperature at many other levels too.
+</div>
+
 ---
 
 # What is a GRIB file?
