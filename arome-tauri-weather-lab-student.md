@@ -80,9 +80,10 @@ Three ideas matter for this lab:
    it. The library does this for us via `latlons()`.
 
 3. **The data is packed (compressed).** Raw floats would be huge, so values are encoded as scaled
-   integers and then compressed. GRIB2 allows several methods (*simple*, *complex*, **JPEG2000**, PNG…).
-   **AROME uses JPEG2000**, which is why our Rust dependency needs the OpenJPEG library — and why we never
-   read the bytes by hand: a GRIB **decoder** reconstructs the real numbers for us.
+   integers and then compressed. GRIB2 allows several methods (*simple*, *complex*, *JPEG2000*,
+   **CCSDS/AEC**, PNG…). The **AROME open-data** files we download use **CCSDS/AEC**, which is why our Rust
+   dependency needs the **libaec** library — and why we never read the bytes by hand: a GRIB **decoder**
+   reconstructs the real numbers for us.
 
 So our backend will: **iterate the fields → read each label (Product Definition) → keep the 2 m
 temperature one → ask for its coordinates (`latlons`) and its decoded values, then pair them up.**
@@ -106,10 +107,10 @@ our decoder produces. We'll draw one small colored rectangle per grid cell to ma
 
 **Toolchains:** Rust (via [rustup.rs](https://rustup.rs)) and Node.js (LTS).
 
-**System libraries** (needed by the webview *and* the GRIB decoder's OpenJPEG dependency):
-- *Arch/Manjaro:* `webkit2gtk-4.1 base-devel openssl librsvg openjpeg2 cmake clang pkgconf`
-- *Debian/Ubuntu:* `libwebkit2gtk-4.1-dev build-essential libssl-dev librsvg2-dev libopenjp2-7-dev cmake clang pkg-config`
-- *macOS:* `xcode-select --install` then `brew install openjpeg cmake`
+**System libraries** (needed by the webview *and* the GRIB decoder's libaec dependency):
+- *Arch/Manjaro:* `webkit2gtk-4.1 base-devel openssl librsvg libaec cmake clang pkgconf`
+- *Debian/Ubuntu:* `libwebkit2gtk-4.1-dev build-essential libssl-dev librsvg2-dev libaec-dev cmake clang pkg-config`
+- *macOS:* `xcode-select --install` then `brew install libaec cmake`
 - *Windows:* prefer **WSL (Ubuntu)** and follow the Debian steps.
 
 **Scaffold** (choose: Vanilla / JavaScript / npm):
@@ -147,7 +148,7 @@ where `discipline = 0`, `category = 0`, `parameter = 0`, at surface height `2`. 
 
 **3.1 — Add the library.** In `src-tauri/Cargo.toml` under `[dependencies]`:
 ```toml
-grib = { version = "0.15.6", default-features = false, features = ["jpeg2000-unpack-with-openjpeg"] }
+grib = { version = "0.15.6", default-features = false, features = ["ccsds-unpack-with-libaec"] }
 ```
 (`serde`, `serde_json` are already there.)
 
@@ -170,8 +171,9 @@ where `TempPoint { lat: f64, lon: f64, value: f64 }` derives `serde::Serialize`.
 Register both commands in `generate_handler![...]`.
 
 > ✅ **Checkpoint 3:** the project compiles and `load_temperature` exists.
-> *Build fails on `openjpeg-sys`?* re-check the system libs above. *Decode error at runtime?* ask for the
-> *simple-packing* version of the file and use `grib = { version = "0.15.6", default-features = false }`.
+> *Build fails on `libaec-sys`?* re-check the system libs above. *Decode error at runtime?* your file may use
+> a different packing — try the bundled *simple-packing* sample (`grib = { …, default-features = false }`), or
+> if it's a JPEG2000 file (e.g. from the AWS mirror) add `"jpeg2000-unpack-with-openjpeg"` and install `openjpeg2`.
 
 ---
 

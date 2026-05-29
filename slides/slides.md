@@ -189,8 +189,8 @@ the library hands it to us via <code>latlons()</code>.
 </Item>
 
 <Item title="3 — The data is packed (compressed)">
-Scaled integers, then compressed. Real AROME files use <b>JPEG2000</b> (openjpeg) or
-<b>CCSDS/AEC</b> (libaec) — a decoder reconstructs the real numbers for us.
+Scaled integers, then compressed. The AROME <b>open-data</b> files we use are packed with
+<b>CCSDS/AEC</b> (decoded via <b>libaec</b>) — a decoder reconstructs the real numbers for us.
 </Item>
 
 </div>
@@ -262,7 +262,7 @@ the part you are on and keep going — details on the next slides and at the end
 # Part 1 — Install & scaffold
 
 - Toolchains: **Rust** (rustup) + **Node.js** (LTS)
-- System libs: `webkit2gtk-4.1`, `openjpeg2`, `libaec`, `librsvg`, `cmake`, `clang`, `pkgconf`
+- System libs: `webkit2gtk-4.1`, `libaec`, `librsvg`, `cmake`, `clang`, `pkgconf`
 
 ```bash
 npm create tauri-app@latest      # name it grib-map (Vanilla / JS / npm)
