@@ -132,10 +132,20 @@ backend = `src-tauri/src/lib.rs` (**not** `main.rs`), `src-tauri/Cargo.toml`,
 
 **Way A (use this in class):** copy the `.grib2` file provided by your instructor; note its full path.
 
-**Way B (bonus):** download an AROME **SP1** package yourself — either from the official portal
-<https://portail-api.meteofrance.fr/> (free account + token) or the **no-login AWS mirror**
-documented at <https://mf-models-on-aws.org/> (model *arome-france*). *SP1* = surface package, it
+**Way B (no login, recommended):** download the latest AROME **SP1** file from Météo-France
+**open data** — no account or token needed. The bundled script does it in one command:
+
+```bash
+./data/fetch_arome_sp1.sh        # -> data/arome_sp1_<date>_<hh>Z_00H.grib2  (~16 MB)
+```
+
+It discovers the latest run on the open-data mirror and grabs the **+00H SP1** field. Browse the
+data yourself at <https://meteo.data.gouv.fr/datasets/66d02b7174375550d7b10f3f> (files served from
+<https://files.data.gouv.fr/meteofrance-pnt/pnt/>, 14-day retention). *SP1* = surface package; it
 contains 2 m temperature.
+
+*Other sources (optional):* the official portal <https://portail-api.meteofrance.fr/> (free
+account + token) or the AWS mirror <https://mf-models-on-aws.org/> (model *arome-france*).
 
 > ✅ **Checkpoint 2:** you have a `.grib2` file and know its path.
 
