@@ -22,4 +22,9 @@ tauri = { version = "2", features = [] }
 tauri-plugin-opener = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+# Meteo-France open-data (data.gouv.fr) AROME files use CCSDS/AEC packing
+# (data-representation template 5.42), decoded via libaec.
+grib = { version = "0.15.6", default-features = false, features = [
+    "ccsds-unpack-with-libaec",
+] }
 
