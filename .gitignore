@@ -1,0 +1,8 @@
+# Slidev
+slides/node_modules/
+slides/dist/
+slides/.slidev/
+
+# Editor / session
+.claude/
+.DS_Store
