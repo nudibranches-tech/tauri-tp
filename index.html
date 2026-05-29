@@ -15,8 +15,20 @@
     <div id="toolbar">
       <button id="load-btn">Open a GRIB2 file…</button>
       <span id="status">Pick an AROME .grib2 file to draw the 2 m temperature.</span>
+      <label id="opacity-control" hidden>
+        Opacity
+        <input id="opacity" type="range" min="0" max="1" step="0.05" value="0.6" />
+      </label>
     </div>
-    <div id="map"></div>
+
+    <div id="map">
+      <div id="legend" hidden>
+        <div id="legend-bar"></div>
+        <div id="legend-labels">
+          <span>-5 °C</span><span>15 °C</span><span>35 °C</span>
+        </div>
+      </div>
+    </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script type="module" src="/src/main.js"></script>

@@ -47,8 +47,51 @@ body {
   color: #475569;
 }
 
+#opacity-control {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 /* The map fills all the space left under the toolbar. */
 #map {
   flex: 1;
   width: 100%;
+  position: relative;
+}
+
+/* Colour legend, floating over the bottom-left of the map. */
+#legend {
+  position: absolute;
+  left: 12px;
+  bottom: 18px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 10px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  font-size: 0.75rem;
+  color: #334155;
+}
+
+#legend-bar {
+  height: 10px;
+  width: 180px;
+  border-radius: 3px;
+  /* blue (-5 °C) → red (35 °C), matching colorForTemp() */
+  background: linear-gradient(
+    to right,
+    hsl(240, 85%, 50%),
+    hsl(120, 85%, 50%),
+    hsl(0, 85%, 50%)
+  );
+}
+
+#legend-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3px;
 }
